@@ -10,15 +10,15 @@
 namespace FFTConfig {
   // FFT Basic Settings
   constexpr int SAMPLES = 256;                // Number of samples
-  constexpr int SAMPLING_FREQUENCY = 2000;    // Sampling frequency
+  constexpr int SAMPLING_FREQUENCY = 4000;    // Sampling frequency
   constexpr int NUM_BANDS = 16;               // Number of frequency bands
   
   // Frequency Range Settings
-  constexpr float MIN_FREQUENCY = 100.0f;     // Minimum frequency (Hz)
-  constexpr float MAX_FREQUENCY = 1000.0f;    // Maximum frequency (Hz)
+  constexpr float MIN_FREQUENCY = 200.0f;     // Minimum frequency (Hz)
+  constexpr float MAX_FREQUENCY = 2000.0f;    // Maximum frequency (Hz)
   
   // Noise Floor Settings
-  constexpr float NOISE_FLOOR = 40.0f;        // Noise floor
+  constexpr float NOISE_FLOOR = 100.0f;        // Noise floor
 }
 
 // Display Related Constants
