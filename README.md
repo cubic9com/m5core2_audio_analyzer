@@ -18,7 +18,7 @@ m5core2_audio_analyzer プロジェクトは、 [M5Stack Core 2](https://docs.m5
 1. Click `USER CUSTOM` in the lower left corner.
 1. Log in to the M5Stack Community.
 1. Click the `Share Burn` button.
-1. Enter `` in the `Share Code` field.
+1. Enter `xHLJnUYWVT02GzMu` in the `Share Code` field.
 1. Click the lightning icon :zap: .
 
 \[日本語\]
@@ -28,7 +28,7 @@ m5core2_audio_analyzer プロジェクトは、 [M5Stack Core 2](https://docs.m5
 1. 左下隅の `USER CUSTOM` をクリックします。
 1. M5Stack Communityにログインします。
 1. `Share Burn` ボタンをクリックします。
-1. `Share Code` フィールドに `` と入力します。
+1. `Share Code` フィールドに `xHLJnUYWVT02GzMu` と入力します。
 1. 稲妻アイコン :zap: をクリックします。
 
 # Installation for developers
