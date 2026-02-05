@@ -1,4 +1,5 @@
 #include <M5Unified.h>
+#include <string.h>
 #include "Constants.h"
 #include "FFTProcessor.h"
 #include "SpectrumRenderer.h"
@@ -98,10 +99,8 @@ void initialize() {
   // Create semaphore
   xSemaphore = xSemaphoreCreateMutex();
   
-  // Initialize band values
-  for (int i = 0; i < FFTConfig::NUM_BANDS; i++) {
-    bandValues[i] = 0;
-  }
+  // Initialize band values using memset for faster initialization
+  memset(bandValues, 0, sizeof(bandValues));
 }
 
 // Start

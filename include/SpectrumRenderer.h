@@ -11,8 +11,10 @@ private:
   uint16_t peakColors[FFTConfig::NUM_BANDS];
   bool wasAllZero;
   
-  // Pale tone color array
-  uint16_t paleColors[16];
+  // Pre-calculated canvas constants
+  int baseY;
+  int maxHeight;
+  int barStep;
 
 public:
   // Constructor

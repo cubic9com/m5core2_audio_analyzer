@@ -11,20 +11,28 @@ FFTProcessor::FFTProcessor() : fft(vReal, vImag, FFTConfig::SAMPLES, FFTConfig::
 void FFTProcessor::calculateBandIndices() {
   int numSamples = FFTConfig::SAMPLES;
   int maxFreqBin = numSamples / 2;
+  float freqScale = (float)numSamples / FFTConfig::SAMPLING_FREQUENCY;
   
   // Parameters for logarithmic scale frequency band calculation
   float logMin = log10f(FFTConfig::MIN_FREQUENCY);
   float logMax = log10f(FFTConfig::MAX_FREQUENCY);
   float logStep = (logMax - logMin) / FFTConfig::NUM_BANDS;
   
+  // Pre-calculate constant for frequency multiplication
+  float freqMultiplier = powf(10.0f, logStep);
+  
+  // Calculate starting frequency using cumulative multiplication
+  float currentFreq = powf(10.0f, logMin);
+  
   for (int band = 0; band < FFTConfig::NUM_BANDS; band++) {
     // Calculate start and end frequencies for the band
-    float startFreq = powf(10.0f, logMin + band * logStep);
-    float endFreq = powf(10.0f, logMin + (band + 1) * logStep);
+    float startFreq = currentFreq;
+    float endFreq = currentFreq * freqMultiplier;
+    currentFreq = endFreq;
     
     // Convert frequencies to FFT bin indices
-    int startIdx = round(startFreq * numSamples / FFTConfig::SAMPLING_FREQUENCY);
-    int endIdx = round(endFreq * numSamples / FFTConfig::SAMPLING_FREQUENCY);
+    int startIdx = round(startFreq * freqScale);
+    int endIdx = round(endFreq * freqScale);
     
     // Range check (minimum is 4 to avoid noise)
     startIndices[band] = constrain(startIdx, 4, maxFreqBin - 1);
@@ -34,10 +42,13 @@ void FFTProcessor::calculateBandIndices() {
 
 // Prepare data for FFT
 void FFTProcessor::prepareFFT(int16_t* samples, int numSamples) {
+  // Pre-calculate normalization constant
+  const float normScale = 1.0f / 32768.0f;
+  
   // Prepare data for FFT
   for (int i = 0; i < numSamples; i++) {
-    // Convert data from I2S
-    vReal[i] = (float)samples[i] / 32768.0f; // Normalize 16-bit audio to -1.0~1.0
+    // Convert data from I2S using constant multiplication instead of division
+    vReal[i] = (float)samples[i] * normScale;
     vImag[i] = 0.0f;
   }
   
@@ -52,6 +63,7 @@ void FFTProcessor::calculateFrequencyBands(uint8_t* bands, int numBands, int num
   // Calculate the range of available FFT bins
   // Valid frequency range is up to half the sampling frequency
   int maxFreqBin = numSamples / 2;
+  float invMaxFreqBin = 1.0f / maxFreqBin;  // Pre-calculate inverse to avoid division in loop
   
   for (int band = 0; band < numBands; band++) {
     // Use pre-calculated indices
@@ -62,7 +74,7 @@ void FFTProcessor::calculateFrequencyBands(uint8_t* bands, int numBands, int num
     float sum = 0.0f;
     for (int j = startIdx; j < endIdx; j++) {
       // Apply correction factor as higher frequencies attenuate more
-      float scaleFactor = 1.0f + (float)j / maxFreqBin * 2.0f;
+      float scaleFactor = 1.0f + j * invMaxFreqBin * 2.0f;
       sum += vReal[j] * scaleFactor;
     }
     
