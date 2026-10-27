@@ -1,6 +1,6 @@
 # Overview / 概要
 
-The m5core2_audio_analyzer project is a spectrum analyzer that displays the frequency components of the audio signal input from microphone of the [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) .
+The m5core2_audio_analyzer project is a spectrum analyzer that displays the frequency components of the audio signal input from the microphone of the [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) .
 
 \[日本語\]
 
@@ -62,7 +62,7 @@ m5core2_audio_analyzer プロジェクトは、 [M5Stack Core 2](https://docs.m5
     - Search for `PlatformIO IDE` and install it.
 
 1. Open PlatformIO Home:
-    - In the left Activity Bar, click PlatformIO icon.
+    - In the left Activity Bar, click the PlatformIO icon.
     - In the left Primary Sidebar, go to `QUICK ACCESS > PIO Home > Open`.
 
 1. Open the project:
