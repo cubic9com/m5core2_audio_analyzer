@@ -1,10 +1,10 @@
 # Overview / 概要
 
-The m5core2_audio_analyzer project is a spectrum analyzer that displays the frequency components of the audio signal input from the microphone of the [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) .
+See sound: a spectrum analyzer that paints the frequency components of music and voice onto the [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2)'s screen, using its built-in microphone. It displays, in real time, the frequency components of the audio signal picked up by the microphone.
 
 \[日本語\]
 
-m5core2_audio_analyzer プロジェクトは、 [M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2) のマイクから入力された音声信号の周波数成分を表示するスペクトラムアナライザです。
+音を「見る」：[M5Stack Core 2](https://docs.m5stack.com/#/en/core/core2)の内蔵マイクを活用し、音楽や音声の周波数成分を画面上に描き出すスペクトラムアナライザーです。マイクが捉えたオーディオ信号の周波数成分を、リアルタイムで表示します。
 
 # Video / 動画
 
