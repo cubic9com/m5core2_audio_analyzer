@@ -2,10 +2,11 @@
 #include <string.h>
 
 // Constructor
-SpectrumRenderer::SpectrumRenderer(M5Canvas& canvas) : canvas(canvas), wasAllZero(true) {
+SpectrumRenderer::SpectrumRenderer(M5Canvas& canvas) : canvas(canvas), wasAllZero(true), hasLastBandValues(false) {
   // Initialize peak values and colors using memset for faster initialization
   memset(peakValues, 0, sizeof(peakValues));
   memset(peakColors, 0, sizeof(peakColors));
+  memset(lastBandValues, 0, sizeof(lastBandValues));
 }
 
 // Draw the spectrum
@@ -25,8 +26,27 @@ void SpectrumRenderer::draw(uint8_t* bandValues) {
     return;
   }
   
+  // Skip drawing if the band values are the same as the last drawn frame
+  // and every peak has settled onto its bar (a peak that is still above
+  // its bar keeps falling, so such frames must still be drawn)
+  if (hasLastBandValues && memcmp(bandValues, lastBandValues, sizeof(lastBandValues)) == 0) {
+    bool peaksSettled = true;
+    for (int i = 0; i < FFTConfig::NUM_BANDS; i++) {
+      int barHeight = (bandValues[i] * maxHeight) / 255;
+      if (peakValues[i] > barHeight) {
+        peaksSettled = false;
+        break;
+      }
+    }
+    if (peaksSettled) {
+      return;
+    }
+  }
+  
   // Record current state
   wasAllZero = isAllZero;
+  memcpy(lastBandValues, bandValues, sizeof(lastBandValues));
+  hasLastBandValues = true;
   
   // Clear canvas
   canvas.fillScreen(ColorConfig::BACKGROUND);

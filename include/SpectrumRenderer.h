@@ -11,6 +11,10 @@ private:
   uint16_t peakColors[FFTConfig::NUM_BANDS];
   bool wasAllZero;
   
+  // Band values used for the last drawn frame (for unchanged-frame skipping)
+  uint8_t lastBandValues[FFTConfig::NUM_BANDS];
+  bool hasLastBandValues;
+  
   // Pre-calculated canvas constants
   int baseY;
   int maxHeight;

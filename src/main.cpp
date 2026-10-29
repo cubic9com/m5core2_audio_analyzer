@@ -55,13 +55,20 @@ void audioProcessing() {
 void displayUpdate() {
   delay(SystemConfig::DISPLAY_INIT_DELAY);
 
+  // Snapshot of the latest band values (copied under the semaphore)
+  uint8_t bandSnapshot[FFTConfig::NUM_BANDS];
+
   while (isRunning) {
     M5.update();
       
-    // Spectrum display
+    // Copy the band values under the semaphore, then draw without
+    // holding it, so the audio task is not blocked by the drawing and
+    // the display transfer
     if (xSemaphoreTake(xSemaphore, portMAX_DELAY) == pdTRUE) {
-      renderer.draw(bandValues);
+      memcpy(bandSnapshot, bandValues, sizeof(bandSnapshot));
       xSemaphoreGive(xSemaphore);
+      
+      renderer.draw(bandSnapshot);
     }
     
     // Delay to control frame rate
@@ -92,7 +99,12 @@ void initialize() {
   // Initialize random seed
   randomSeed(esp_random());
   
+  // Use 8-bit color depth: the spectrum uses only a few colors, and it
+  // halves both the sprite memory and the transfer size per frame
+  M5.Display.setColorDepth(8);
+  
   // Initialize canvas
+  canvas.setColorDepth(8);
   canvas.createSprite(M5.Display.width(), M5.Display.height());
   renderer.initialize();
   
