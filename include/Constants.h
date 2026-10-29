@@ -40,7 +40,7 @@ namespace DisplayConfig {
 namespace ColorConfig {
   // Basic Colors
   constexpr uint16_t TFT_DARKGREY = 0x7BEF;
-  constexpr uint16_t TFT_VERYDARKGREY = 0x18C3;  // Darker grey (about 1/4 brightness of TFT_DARKGREY)
+  constexpr uint16_t TFT_VERYDARKGREY = 0x4208;  // Dark grey (chosen so it stays visible at 8-bit color depth: the previous value 0x18C3 quantizes to pure black in RGB332)
   constexpr uint16_t BACKGROUND = TFT_BLACK;     // Background color
   constexpr uint16_t BAR_COLOR = TFT_VERYDARKGREY; // Bar color
   
