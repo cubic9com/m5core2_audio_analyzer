@@ -12,7 +12,7 @@ See sound: a spectrum analyzer that paints the frequency components of music and
 
 # Installation / インストール
 
-1. Open https://burner.m5stack.com/YLXA8E .
+1. Open https://burner.m5stack.com/2G9BQR .
 
 1. Click `Burn to device` button.
 
@@ -26,7 +26,7 @@ See sound: a spectrum analyzer that paints the frequency components of music and
 
 \[日本語\]
 
-1. https://burner.m5stack.com/YLXA8E を開く。
+1. https://burner.m5stack.com/2G9BQR を開く。
 
 1. Click `デバイスに書き込む` button.
 
